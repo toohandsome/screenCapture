@@ -18,25 +18,28 @@ namespace _SCREEN_CAPTURE
             this.pictureBox1.Image = bmp;
             this.pictureBox1.Width = bmp.Width;
             this.pictureBox1.Height = bmp.Height;
+            this.Width = bmp.Width;
+            this.Height = bmp.Height;
 
         }
 
-       
+        
 
-            private void FrmPin_MouseMove(object sender, MouseEventArgs e)
+        private void 关闭ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            this.Close();
+        }
+
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
 
             {
-
-                Top = MousePosition.Y - _mousePoint.Y;
-
-                Left = MousePosition.X - _mousePoint.X;
-
+                contextMenuStrip1.Show(MousePosition.X, MousePosition.Y);
             }
         }
 
-        private void FrmPin_MouseDown(object sender, MouseEventArgs e)
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
 
@@ -49,18 +52,17 @@ namespace _SCREEN_CAPTURE
             }
         }
 
-        private void FrmPin_MouseClick(object sender, MouseEventArgs e)
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Left)
 
             {
-                contextMenuStrip1.Show(MousePosition.X, MousePosition.Y);
-            }
-        }
 
-        private void 关闭ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
+                Top = MousePosition.Y - _mousePoint.Y;
+
+                Left = MousePosition.X - _mousePoint.X;
+
+            }
         }
     }
 }

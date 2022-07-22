@@ -40,11 +40,14 @@ namespace _SCREEN_CAPTURE
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(375, 239);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(100, 50);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
             // contextMenuStrip1
             // 
@@ -53,19 +56,19 @@ namespace _SCREEN_CAPTURE
             this.关闭ToolStripMenuItem,
             this.销毁ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(241, 97);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(117, 64);
             // 
             // 关闭ToolStripMenuItem
             // 
             this.关闭ToolStripMenuItem.Name = "关闭ToolStripMenuItem";
-            this.关闭ToolStripMenuItem.Size = new System.Drawing.Size(240, 30);
+            this.关闭ToolStripMenuItem.Size = new System.Drawing.Size(116, 30);
             this.关闭ToolStripMenuItem.Text = "关闭";
             this.关闭ToolStripMenuItem.Click += new System.EventHandler(this.关闭ToolStripMenuItem_Click);
             // 
             // 销毁ToolStripMenuItem
             // 
             this.销毁ToolStripMenuItem.Name = "销毁ToolStripMenuItem";
-            this.销毁ToolStripMenuItem.Size = new System.Drawing.Size(240, 30);
+            this.销毁ToolStripMenuItem.Size = new System.Drawing.Size(116, 30);
             this.销毁ToolStripMenuItem.Text = "销毁";
             // 
             // FrmPin
@@ -76,10 +79,7 @@ namespace _SCREEN_CAPTURE
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmPin";
-            this.Text = "FrmPin";
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FrmPin_MouseClick);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmPin_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FrmPin_MouseMove);
+            this.Text = "FrmPin"; 
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
