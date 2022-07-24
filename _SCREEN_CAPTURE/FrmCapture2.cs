@@ -35,7 +35,7 @@ namespace _SCREEN_CAPTURE
             this.pictureBox1.Location = new Point(0, 0);
             pictureBox1.SendToBack();
 
-            //this.TopMost = true;
+            this.TopMost = true;
             this.ShowInTaskbar = false;
 
             panel1.Controls.Add(pictureBox2);
@@ -68,7 +68,7 @@ namespace _SCREEN_CAPTURE
 
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         { 
-            Console.WriteLine("pictureBox1_MouseClick: " + isDraweing);
+            Console.WriteLine("pictureBox1_MouseClick: " + isDraweing + " , location: " +e.Location);
             if (e.Button == MouseButtons.Left) {
 
                 // 框选截图
@@ -93,14 +93,28 @@ namespace _SCREEN_CAPTURE
             }
         }
 
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine("pictureBox1_MouseMove: " + e.Button + " , location: " + e.Location);
+            if (e.Button == MouseButtons.Left)
+            {
+                int w = Math.Abs( e.X - startPoint.X);
+                int h = Math.Abs(e.Y - startPoint.Y);
+                panel1.Visible = true;
+                panel1.Size = new Size(w, h);
+                
+                isDraweing = true;
+                 
+            }
+        }
+
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             Console.WriteLine("pictureBox1_MouseUp: " + isDraweing);
-            if (isDraweing)
+            if (e.Button == MouseButtons.Left)
             {
                 isDraweing = false;
-            }
-            //isDraweing = false;
+            } 
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -112,10 +126,7 @@ namespace _SCREEN_CAPTURE
            // Gvar.BrightnessP(sourceScreen, trackBar1.Value);
         }
 
-        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
-        {
-            Console.WriteLine("pictureBox1_MouseMove: " + e.Button);
-        }
+        
 
         private void pictureBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
@@ -206,6 +217,30 @@ namespace _SCREEN_CAPTURE
                 this.pointInPanel1.X = e.X-panel1.Location.X;
                 this.pointInPanel1.Y = e.Y - panel1.Location.Y;
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("label1_Click: " + MouseButtons);
+        }
+
+        private void panel1_LocationChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("panel1_LocationChanged: " + panel1.Location);
+            string info = null;
+            //StackTrace st = new StackTrace(true);
+            ////得到当前的所以堆栈
+            //StackFrame[] sf = st.GetFrames();
+            //for (int i = 0; i < sf.Length; ++i)
+            //{
+            //    info = info + "\r\n" + " FileName=" + sf[i].GetFileName() + " fullname=" + sf[i].GetMethod().DeclaringType.FullName + " function=" + sf[i].GetMethod().Name + " FileLineNumber=" + sf[i].GetFileLineNumber();
+            //}
+            //Console.WriteLine("panel1_LocationChanged: " + info);
+        }
+
+        private void pictureBox2_LocationChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("pictureBox2_LocationChanged: " + pictureBox2.Location);
         }
     }
 }

@@ -58,7 +58,7 @@ namespace _SCREEN_CAPTURE
         /// <param name="e"></param>
         public void MouseClick(object sender, MouseEventArgs e)
         {
-            Console.WriteLine(currentControl.Name + " MouseClick ");
+            Console.WriteLine(currentControl.Name + " MouseClick , location: " + e.Location);
             this.currentControl.Parent.Refresh();//刷新父容器，清除掉其他控件的边框
             this.currentControl.BringToFront();
             //fc = new FrameControl(this.currentControl);
