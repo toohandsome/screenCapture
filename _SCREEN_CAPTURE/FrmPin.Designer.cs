@@ -41,8 +41,9 @@ namespace _SCREEN_CAPTURE
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox1.Size = new System.Drawing.Size(89, 42);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
@@ -56,30 +57,34 @@ namespace _SCREEN_CAPTURE
             this.关闭ToolStripMenuItem,
             this.销毁ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(117, 64);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(109, 52);
             // 
             // 关闭ToolStripMenuItem
             // 
             this.关闭ToolStripMenuItem.Name = "关闭ToolStripMenuItem";
-            this.关闭ToolStripMenuItem.Size = new System.Drawing.Size(116, 30);
+            this.关闭ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
             this.关闭ToolStripMenuItem.Text = "关闭";
             this.关闭ToolStripMenuItem.Click += new System.EventHandler(this.关闭ToolStripMenuItem_Click);
             // 
             // 销毁ToolStripMenuItem
             // 
             this.销毁ToolStripMenuItem.Name = "销毁ToolStripMenuItem";
-            this.销毁ToolStripMenuItem.Size = new System.Drawing.Size(116, 30);
+            this.销毁ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
             this.销毁ToolStripMenuItem.Text = "销毁";
             // 
             // FrmPin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ClientSize = new System.Drawing.Size(711, 375);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FrmPin";
-            this.Text = "FrmPin"; 
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Text = "FrmPin";
+            this.Resize += new System.EventHandler(this.FrmPin_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);

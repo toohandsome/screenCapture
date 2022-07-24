@@ -18,12 +18,16 @@ namespace _SCREEN_CAPTURE
             this.pictureBox1.Image = bmp;
             this.pictureBox1.Width = bmp.Width;
             this.pictureBox1.Height = bmp.Height;
-            this.Width = bmp.Width;
-            this.Height = bmp.Height;
+            this.Width = bmp.Width+4;
+            this.Height = bmp.Height+4;
+
+            this.Location = new Point(MousePosition.X-(this.Width/2),MousePosition.Y - (this.Height / 2));
+            
+
 
         }
 
-        
+
 
         private void 关闭ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -63,6 +67,13 @@ namespace _SCREEN_CAPTURE
                 Left = MousePosition.X - _mousePoint.X;
 
             }
+        }
+
+        private void FrmPin_Resize(object sender, EventArgs e)
+        {
+            Point p2 = new Point((this.Width - pictureBox1.Width) / 2, (this.Height - pictureBox1.Height) / 2);
+
+            pictureBox1.Location = p2;
         }
     }
 }

@@ -8,6 +8,8 @@ using System.Windows.Forms;
 
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Diagnostics;
 
 namespace _SCREEN_CAPTURE
 {
@@ -284,7 +286,7 @@ namespace _SCREEN_CAPTURE
             m_bMouseEnter = true;
 
             #region Process OperationBox
-
+ 
             if (isDrawed && this.canReset) {        //如果已经绘制 并且可以操作选区 判断操作类型
                 this.SetCursorStyle(e.Location);
                 if (isStartDraw && this.isDrawOperationDot) {
@@ -327,7 +329,7 @@ namespace _SCREEN_CAPTURE
                 base.OnMouseMove(e);
                 return;
             }
-
+             
             #endregion
 
             #region Calculate the operationbox
@@ -353,9 +355,11 @@ namespace _SCREEN_CAPTURE
                             selectedRectangle.Height = Math.Abs(m_ptOriginal.Y - e.Y);
                         }
                     }
-                }
-                this.Invalidate();
-            }
+                } 
+                    this.Invalidate();
+                
+                
+            } 
 
             #endregion
             //绘制放大信息
@@ -365,12 +369,14 @@ namespace _SCREEN_CAPTURE
         }
 
         protected override void OnMouseLeave(EventArgs e) {
+            Console.WriteLine("OnMouseLeave");
             m_bMouseEnter = false;
             this.Invalidate();
             base.OnMouseLeave(e);
         }
 
         protected override void OnMouseUp(MouseEventArgs e) {
+            Console.WriteLine("OnMouseLeave");
             if (e.Button == MouseButtons.Left) {        //如果绘制太小 则视为无效
                 if (this.selectedRectangle.Width >= 4 && this.selectedRectangle.Height >= 4)
                     isDrawed = true;
@@ -387,6 +393,7 @@ namespace _SCREEN_CAPTURE
         }
         //响应四个按键实现精确移动
         protected override void OnKeyPress(KeyPressEventArgs e) {
+            Console.WriteLine("OnMouseLeave");
             if (e.KeyChar == 'w')
                 Win32.SetCursorPos(MousePosition.X, MousePosition.Y - 1);
             else if (e.KeyChar == 's')
@@ -398,15 +405,30 @@ namespace _SCREEN_CAPTURE
             base.OnKeyPress(e);
         }
 
+        
+
         protected override void OnPaint(PaintEventArgs e) {
-            Graphics g = e.Graphics;
+            Console.WriteLine("OnPaint");
+
+
+            Graphics g = e.Graphics; 
             if (this.baseImage != null) {
-                g.DrawImage(m_bmpDark, 0, 0);
+                // 背景浅色区域
+                // 在按下截图快捷键后无需绘制,在鼠标按下后时需要
+                if (Gvar.start_captrue)
+                {
+                    g.DrawImage(m_bmpDark, 0, 0);
+                }
+
+                // 框选原色区域
                 g.DrawImage(this.baseImage, this.selectedRectangle, this.selectedRectangle, GraphicsUnit.Pixel);
             }
-            this.DrawOperationBox(g);
-            if (this.baseImage != null && !isDrawed && !isMoving && m_bMouseEnter && isShowInfo)
-                DrawInfo(e.Graphics);
+            // 框线
+            //this.DrawOperationBox(g);
+            //if (this.baseImage != null && !isDrawed && !isMoving && m_bMouseEnter && isShowInfo) {
+            //    // 放大镜
+            //    DrawInfo(e.Graphics);
+            //} 
             base.OnPaint(e);
         }
         //绘制操作框

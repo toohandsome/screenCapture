@@ -574,8 +574,13 @@ namespace _SCREEN_CAPTURE
             //MessageBox.Show("11");
             try
             {
-                string token = getAccessToken();
-                string host = "https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic?access_token=" + token;
+                if (Gvar.orc_token == "")
+                {
+                    MessageBox.Show("未正确配置 ocrkey 或 ocrSecret");
+                    return;
+                }
+                 
+                string host = "https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic?access_token=" + Gvar.orc_token;
                 Encoding encoding = Encoding.Default;
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(host);
                 request.Method = "post";
@@ -593,7 +598,8 @@ namespace _SCREEN_CAPTURE
                 Console.WriteLine(result);
                 //FrmOrcResult.ocrResult = result;
                 new FrmOrcResult(m_bmpLayerCurrent.Clone() as Bitmap, result).Show();
-                this.Close(); 
+                this.Close();
+                Console.WriteLine("captrue close");
             }
             catch (Exception e1)
             {
@@ -602,29 +608,7 @@ namespace _SCREEN_CAPTURE
 
         }
 
-        public static String getAccessToken()
-        {
-            string result = "";
-            try
-            {
-                String authHost = "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=Cg04GKgDmRrZZfAeIrm82dSF&client_secret=qTU2PjuP95YEpc7pFqYbGCfkNGxzcDQb";
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(authHost);
-                request.Method = "post";
-
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.Default);
-                result = reader.ReadToEnd();
-                Console.WriteLine(result);
-                JObject jo = (JObject)JsonConvert.DeserializeObject(result);//或者JObject jo = JObject.Parse(jsonText);
-                //result = jo.GetValue("refresh_token").ToString();
-                result = jo["access_token"].ToString();
-                Console.WriteLine("access_token: " + result);
-            }
-            catch (Exception e) {
-                Console.WriteLine("e:" + e);
-            }
-            return result;
-        }
+        
 
         public static string ImgToBase64String(Bitmap bmp)
         {
@@ -644,8 +628,16 @@ namespace _SCREEN_CAPTURE
                 return null;
             }
         }
+         
 
-        private void toolButton5_Click(object sender, EventArgs e)
+        private void imageProcessBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 27) {
+                this.Close();
+            }
+        }
+
+        private void toolButton5_MouseClick(object sender, MouseEventArgs e)
         {
             new FrmPin(m_bmpLayerCurrent.Clone() as Bitmap).Show();
             this.Close();

@@ -12,13 +12,14 @@ namespace _SCREEN_CAPTURE
 {
     public partial class FrmOrcResult : Form
     {
+        private Bitmap m_bmpLayerCurrent;
         public FrmOrcResult(Bitmap bmp, string ocrText)
         {
+            Console.WriteLine("FrmOrcResult init ");
             InitializeComponent();
             JObject ocrJson = JObject.Parse(ocrText);
             var words = ocrJson["words_result"].ToArray();
             var fullStr = "";
-            //var 
             Console.WriteLine("length: " + words.Length);
             int max = 0;
             for (int i = 0; i < words.Length; i++)
@@ -34,17 +35,18 @@ namespace _SCREEN_CAPTURE
             textBox1.Height = words.Length* 38;
             textBox1.Text = fullStr; 
             pictureBox1.Image = bmp;
+            m_bmpLayerCurrent = bmp;
             panel1.Controls.Add(pictureBox1);
             panel2.Controls.Add(textBox1);
             panel2.Controls.Add(button1);
 
             Graphics g = this.textBox1.CreateGraphics();
             System.Drawing.SizeF s = g.MeasureString(this.textBox1.Text, this.textBox1.Font);
-            this.textBox1.Height = (int)s.Height + 10;
+            this.textBox1.Height = (int)s.Height + 50;
             this.textBox1.Width = (int)s.Width + 10;
 
 
-            int width = pictureBox1.Image.Width + 100 + this.textBox1.Width;
+            int width = pictureBox1.Image.Width + 200 + this.textBox1.Width;
 
 
             if (width > Gvar.getSize().Width * 0.9)
@@ -63,7 +65,7 @@ namespace _SCREEN_CAPTURE
                     this.Width = this.textBox1.Width + 100;
                 }
 
-                this.Height = pictureBox1.Image.Height + words.Length * 30 +300 ;
+                this.Height = pictureBox1.Image.Height + textBox1.Height + 300 ;
                 this.panel1.Height = pictureBox1.Image.Height + 50;
 
 
@@ -71,13 +73,13 @@ namespace _SCREEN_CAPTURE
             else {
                 this.Width = width;
                 int height = 0;
-                if (pictureBox1.Image.Height > words.Length * 30)
+                if (pictureBox1.Image.Height > textBox1.Height)
                 {
                     height = pictureBox1.Image.Height + 200;
                 }
                 else
                 {
-                    height = words.Length * 30 + 200;
+                    height = textBox1.Height  + 200;
                 }
                 this.Height = height;
                 panel1.Width = pictureBox1.Image.Width + 50;
@@ -91,18 +93,14 @@ namespace _SCREEN_CAPTURE
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {            
-            textBox1.Height = textBox1.Lines.Length * 38;
-            if (textBox1.Height < 250) {
-                textBox1.Height = 250;
-            }
+            //textBox1.Height = textBox1.Lines.Length * 38;
+            //if (textBox1.Height < 250) {
+            //    textBox1.Height = 250;
+            //}
 
              
         }
-
-        private void FrmOrcResult_SizeChanged(object sender, EventArgs e)
-        {
-            resize();
-        }
+         
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -110,11 +108,7 @@ namespace _SCREEN_CAPTURE
         }
          
 
-        private void FrmOrcResult_Resize(object sender, EventArgs e)
-        {
-            resize(); 
-
-        }
+         
 
         public void resize() { 
 
@@ -124,20 +118,39 @@ namespace _SCREEN_CAPTURE
             Point p = new Point(0, (this.panel2.Height - textBox1.Height) / 2);
             Point p1 = new Point(50, 27); 
             textBox1.Location = p; 
-            Console.WriteLine("width: " + (this.panel2.Width  - 100));
-            button1.Location = p1; 
+            Console.WriteLine("resize1:  width: " + (this.panel2.Width  - 100));
+            button1.Location = p1;
 
-            pictureBox1.Width = pictureBox1.Image.Width;
-            pictureBox1.Height = pictureBox1.Image.Height;
-
-
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Width = pictureBox1.Image.Width;
+                pictureBox1.Height = pictureBox1.Image.Height;
+            }
+           
+          
             Point p2 = new Point((this.panel1.Width - pictureBox1.Width)/2, (this.panel1.Height - pictureBox1.Height) / 2);
+            
             pictureBox1.Location = p2;
+            
         }
 
         private void panel1_Resize(object sender, EventArgs e)
         {
             resize();
+        }
+
+        private void pinToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FrmPin(m_bmpLayerCurrent.Clone() as Bitmap).Show();
+        }
+
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+
+            {
+                contextMenuStrip1.Show(MousePosition.X, MousePosition.Y);
+            }
         }
     }
 }

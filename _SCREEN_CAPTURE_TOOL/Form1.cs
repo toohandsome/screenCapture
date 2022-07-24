@@ -10,6 +10,10 @@ using _SCREEN_CAPTURE;
 using System.Runtime.InteropServices;
 using System.IO;
 using Microsoft.Win32;
+using System.Net;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.Threading;
 
 namespace _SCREEN_CAPTURE_TOOL
 {
@@ -52,7 +56,8 @@ namespace _SCREEN_CAPTURE_TOOL
         private uint m_uAuxKey_c;
         private bool m_bAutoRun;
         private bool m_bCaptureCur;
-
+        private string ocrKey = "";
+        private string ocrSecret = "";
         private KeyHook m_keyHook;
         private DateTime m_dtLastDownPrt;
 
@@ -63,11 +68,11 @@ namespace _SCREEN_CAPTURE_TOOL
         private void Form1_Load(object sender, EventArgs e) {
             m_keyHook.SetHook();
             if (!this.LoadSetting()) {  //加载用户设置 如果失败使用默认设置
-                if (Win32.RegisterHotKey(this.Handle, HOTKEY_N_ID, MOD_SHIFT | MOD_ALT, (int)Keys.A)) {
+                if (Win32.RegisterHotKey(this.Handle, HOTKEY_N_ID, MOD_CONTROL | MOD_ALT, (int)Keys.A)) {
                     chkBox_alt_n.Checked = chkBox_shift_n.Checked = true;
                     textBox1.Text = "A";
                 }
-                if (Win32.RegisterHotKey(this.Handle, HOTKEY_C_ID, MOD_CONTROL | MOD_ALT, (int)Keys.N)) {
+                if (Win32.RegisterHotKey(this.Handle, HOTKEY_C_ID, MOD_SHIFT | MOD_ALT, (int)Keys.N)) {
                     chkBox_alt_c.Checked = chkBox_ctrl_c.Checked = true;
                     textBox2.Text = "N";
                 }
@@ -137,6 +142,15 @@ namespace _SCREEN_CAPTURE_TOOL
             fs.Write(BitConverter.GetBytes(m_uAuxKey_c), 0, 4);       //保存辅助键
             fs.WriteByte((byte)(m_bAutoRun ? 1 : 0));               //保存是否自起
             fs.WriteByte((byte)(m_bCaptureCur ? 1 : 0));            //保存是否捕获鼠标
+            if (textBox3.Text.Trim().Length == 24 && textBox4.Text.Trim().Length == 32 )
+            {
+                fs.Write(Encoding.UTF8.GetBytes(textBox3.Text.Trim()), 0, 24); // ocr key
+                fs.Write(Encoding.UTF8.GetBytes(textBox4.Text.Trim()), 0, 32); // ocr secret
+            }
+            
+           
+            
+            
             fs.Close();
             //根据情况是否写入注册表
             try {
@@ -156,6 +170,15 @@ namespace _SCREEN_CAPTURE_TOOL
             catch (Exception e1) {
                 Console.WriteLine("e: "+ e);
                }
+
+            if (this.textBox3.Text.Trim().Length==24 && this.textBox4.Text.Trim().Length == 32)
+            {
+                ocrKey = this.textBox3.Text.Trim();
+                ocrSecret = this.textBox4.Text.Trim();
+            }
+
+            Thread t = new Thread(getAccessToken);//1创建线程对象
+            t.Start();//2从这里开始
             MessageBox.Show("Setting Finish!");
         }
         //重写消息循环
@@ -192,11 +215,16 @@ namespace _SCREEN_CAPTURE_TOOL
         }
         //启动截图
         private void StartCapture(bool bFromClip) {
-            if (m_frmCapture == null || m_frmCapture.IsDisposed)
-                m_frmCapture = new FrmCapture();
-            m_frmCapture.IsCaptureCursor = checkBox_CaptureCursor.Checked;
-            m_frmCapture.IsFromClipBoard = bFromClip;
-            m_frmCapture.Show();
+            //if (m_frmCapture == null || m_frmCapture.IsDisposed)
+            //    m_frmCapture = new FrmCapture();
+            //m_frmCapture.IsCaptureCursor = checkBox_CaptureCursor.Checked;
+            //m_frmCapture.IsFromClipBoard = bFromClip;
+            //m_frmCapture.Show();
+            var myCapture = new FrmCapture2(Gvar.getScreen());
+            myCapture.Show();
+
+
+            Gvar.start_captrue = true;
         }
         //从文件加载用户的设置
         private bool LoadSetting() {
@@ -204,7 +232,10 @@ namespace _SCREEN_CAPTURE_TOOL
             if (!File.Exists(Application.StartupPath + "\\CaptureSetting.cfg"))      //从文件中获取设置
                 return false;
             byte[] byTemp = File.ReadAllBytes(Application.StartupPath + "\\CaptureSetting.cfg");
-            if (byTemp.Length != 18)
+
+            Console.WriteLine("byTemp.Length: " + byTemp.Length);
+
+            if (byTemp.Length != 18 && byTemp.Length != 74)
                 return false;
             m_uCtrlKey_n = BitConverter.ToUInt32(byTemp, 0);
             m_uAuxKey_n = BitConverter.ToUInt32(byTemp, 4);
@@ -227,6 +258,21 @@ namespace _SCREEN_CAPTURE_TOOL
 
             checkBox_AutoRun.Checked = m_bAutoRun = Convert.ToBoolean(byTemp[16]);
             checkBox_CaptureCursor.Checked = m_bCaptureCur = Convert.ToBoolean(byTemp[17]);
+            if (byTemp.Length == 74)
+            {
+                byte[] keyArr = new byte[24];
+                Array.ConstrainedCopy(byTemp, 18, keyArr, 0, 24);
+                ocrKey = Encoding.UTF8.GetString(keyArr);
+                Console.WriteLine("ocrKey: " + ocrKey);
+                byte[] secretArr = new byte[32];
+                Array.ConstrainedCopy(byTemp, 42, secretArr, 0, 32);
+                ocrSecret = Encoding.UTF8.GetString(secretArr);
+                Console.WriteLine("ocrSecret: " + ocrSecret);
+                Thread t = new Thread(getAccessToken);//1创建线程对象
+                t.Start();//2从这里开始
+            }
+           
+
             return true;
         }
         //加载当前的设置显示到窗体
@@ -293,7 +339,38 @@ namespace _SCREEN_CAPTURE_TOOL
             height = GetDeviceCaps(hdc, DESKTOPVERTRES);
             ReleaseDC(IntPtr.Zero, hdc);
         }
- 
-         
+
+
+        // 获取百度token
+        public void    getAccessToken()
+        {
+            string result = "";
+
+            if (ocrKey == "" || ocrSecret == "") {
+                return;
+            }
+            try
+            {
+                string authHost = "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id="+ ocrKey + "&client_secret="+ ocrSecret;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(authHost);
+                request.Method = "post";
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.Default);
+                result = reader.ReadToEnd();
+                Console.WriteLine(result);
+                JObject jo = (JObject)JsonConvert.DeserializeObject(result);//或者JObject jo = JObject.Parse(jsonText);
+                //result = jo.GetValue("refresh_token").ToString();
+                result = jo["access_token"].ToString();
+                Console.WriteLine("access_token: " + result);
+                Gvar.orc_token = result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("e:" + e);
+            }
+          
+        }
+
     }
 }
