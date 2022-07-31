@@ -19,6 +19,7 @@ namespace _SCREEN_CAPTURE
             baseControl = ctrl;
             AddEvents();
             CreateBounds();
+            Console.WriteLine("fc init ... ");
         }
         #endregion
         #region Fields

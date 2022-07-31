@@ -38,17 +38,18 @@ namespace _SCREEN_CAPTURE
             this.TopMost = true;
             this.ShowInTaskbar = false;
 
-            panel1.Controls.Add(pictureBox2);
+            //panel1.Controls.Add(pictureBox2);
             pictureBox2.Location = new Point(-100, -100);
-            pictureBox2.Image = sourceScreen;
-
-            Console.WriteLine(label1.Location);
+            
+            //Console.WriteLine(label1.Location);
 
             pictureBox2.Size = new Size(sourceScreen.Width, sourceScreen.Width);
             pictureBox2.Image = sourceScreen;
-
-            moveControl = new MoveControl(panel1);
+            
+            Console.WriteLine("pictureBox2.size: " + pictureBox2.Size);
+            moveControl = new MoveControl(panel1, pictureBox2);
             //trackBar1.Maximum = 255;
+            Console.WriteLine("FrmCapture2 init finished");
         }
 
         
@@ -65,17 +66,65 @@ namespace _SCREEN_CAPTURE
 
         public bool isDraweing  = false;
         public Point startPoint;
+        private bool isBoxSelection;
 
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine("pictureBox1_MouseDown: ");
+            if (e.Button == MouseButtons.Left)
+            {
+                if (moveControl != null && moveControl.fc != null)
+                { 
+
+                    //Console.WriteLine("moveControl.fc: " + moveControl.fc);
+
+                    //moveControl.fc.Visible = false;
+                    panel1.Parent.Controls.Remove(moveControl.fc);
+                }
+                
+
+                // 点击截图
+                Console.WriteLine("框选截图 ");
+                isBoxSelection = true;
+                var p = new Point(e.Location.X, e.Location.Y);
+                panel1.Visible = true;
+                //Console.WriteLine("before  panel1.Location: " + panel1.Location);
+                panel1.Location = p;
+                //Console.WriteLine("after panel1.Location: " + panel1.Location);
+                pictureBox2.Visible = true;
+
+                startPoint = p;
+                isDraweing = true;
+
+                // 相对于 panel
+                pictureBox2.Location = new Point(-e.Location.X, -e.Location.Y);
+                //moveControl.MouseClick(sender, e); 
+
+
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+
+            }
+        }
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         { 
             Console.WriteLine("pictureBox1_MouseClick: " + isDraweing + " , location: " +e.Location);
             if (e.Button == MouseButtons.Left) {
 
-                // 框选截图
+                if (isBoxSelection)
+                {
+                    return;
+                }
 
+                // 点击截图
+                Console.WriteLine("点击截图 " );
+                isBoxSelection = false;
                 var p = new Point(e.Location.X, e.Location.Y);
-                panel1.Location= p;
                 panel1.Visible = true;
+                Console.WriteLine("before  panel1.Location: " + panel1.Location);
+                panel1.Location= p;
+                Console.WriteLine("after panel1.Location: " + panel1.Location);
                 pictureBox2.Visible = true;
                 
                 startPoint = p;
@@ -88,14 +137,17 @@ namespace _SCREEN_CAPTURE
             }
 
             if (e.Button == MouseButtons.Right)
-            {
 
+            {
+                contextMenuStrip1.Show(MousePosition.X, MousePosition.Y);
             }
+        
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            Console.WriteLine("pictureBox1_MouseMove: " + e.Button + " , location: " + e.Location);
+            //Console.WriteLine("pictureBox1_MouseMove: " + e.Button + " , location: " + e.Location);
+            //Console.WriteLine("pictureBox1_MouseMove: " + e.Button + " , location: " + e.Location);
             if (e.Button == MouseButtons.Left)
             {
                 int w = Math.Abs( e.X - startPoint.X);
@@ -114,6 +166,8 @@ namespace _SCREEN_CAPTURE
             if (e.Button == MouseButtons.Left)
             {
                 isDraweing = false;
+                isBoxSelection = false;
+                moveControl.MouseClick(sender, e);
             } 
         }
 
@@ -158,6 +212,7 @@ namespace _SCREEN_CAPTURE
         private void panel1_MouseClick(object sender, MouseEventArgs e)
         {
             Console.WriteLine("panel1_MouseClick: " + e.Button);
+          
 
         }
 
@@ -177,7 +232,7 @@ namespace _SCREEN_CAPTURE
 
         private void pictureBox2_MouseMove(object sender, MouseEventArgs e)
         {
-            Console.WriteLine("pictureBox2_MouseMove: " + e.Button+ " ,Location: " + e.Location);
+            //Console.WriteLine("pictureBox2_MouseMove: " + e.Button+ " ,Location: " + e.Location);
             //var a = new MouseEventArgs(e.Button,e.Clicks,e.X,e.Y,e.Delta);
             moveControl.MouseMove(sender, e);
         }
@@ -205,6 +260,10 @@ namespace _SCREEN_CAPTURE
             var a = new MouseEventArgs(e.Button, e.Clicks, Cursor.Position.X- this.pointInPanel1.X, Cursor.Position.Y- this.pointInPanel1.Y, e.Delta);
             pictureBox1_MouseClick (sender, a);
             pictureBox1_MouseUp(sender, a);
+            if (moveControl.fc != null)
+            {
+                moveControl.fc.Visible = true;
+            }
         }
         // 记录拖放的起点
         private Point pointInPanel1;
@@ -227,7 +286,7 @@ namespace _SCREEN_CAPTURE
         private void panel1_LocationChanged(object sender, EventArgs e)
         {
             Console.WriteLine("panel1_LocationChanged: " + panel1.Location);
-            string info = null;
+            //string info = null;
             //StackTrace st = new StackTrace(true);
             ////得到当前的所以堆栈
             //StackFrame[] sf = st.GetFrames();
@@ -241,6 +300,40 @@ namespace _SCREEN_CAPTURE
         private void pictureBox2_LocationChanged(object sender, EventArgs e)
         {
             Console.WriteLine("pictureBox2_LocationChanged: " + pictureBox2.Location);
+        }
+
+        private void panel1_SizeChanged(object sender, EventArgs e)
+        {
+            //Console.WriteLine("panel1_SizeChanged: " + panel1.Width);
+        }
+
+        private void pictureBox2_MouseEnter(object sender, EventArgs e)
+        {
+            Console.WriteLine("pictureBox2_MouseEnter: " + panel1.Width);
+        }
+
+        private void pictureBox2_DragEnter(object sender, DragEventArgs e)
+        {
+            Console.WriteLine("pictureBox2_DragEnter: " + panel1.Width);
+        }
+
+        private void pictureBox2_Move(object sender, EventArgs e)
+        {
+            Console.WriteLine("pictureBox2_Move: " );
+        }
+
+        private void pin在桌面ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+         
+            Bitmap bmp = new Bitmap(panel1.Width,
+                       panel1.Height);
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.CopyFromScreen(panel1.Location.X, panel1.Location.Y, 0, 0, bmp.Size);
+            }
+            new FrmPin(bmp).Show();
+            this.Close();
+            
         }
     }
 }

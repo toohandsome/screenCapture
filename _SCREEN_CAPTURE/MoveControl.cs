@@ -10,14 +10,16 @@ namespace _SCREEN_CAPTURE
     class MoveControl
     {
         #region Constructors
-        public MoveControl(Control ctrl)
+        public MoveControl(Control ctrl, Control imgbox)
         {
             currentControl = ctrl;
+            imgbox2 = imgbox;
             AddEvents();
         }
         #endregion
         #region Fields
         private Control currentControl; //传入的控件
+        private Control imgbox2; //传入的控件
         private Point pPoint; //上个鼠标坐标
         private Point cPoint; //当前鼠标坐标
         public FrameControl fc;//边框控件
@@ -93,6 +95,11 @@ namespace _SCREEN_CAPTURE
                 currentControl.Location = new Point(currentControl.Location.X + x, currentControl.Location.Y + y);
                 Console.WriteLine("pPoint: " + pPoint + " , cPoint: " + cPoint+ " , currentControl.Location: " + currentControl.Location);
                 pPoint = cPoint;
+
+                // 改变 pictureBox2.Location 
+                imgbox2.Location = new Point(-currentControl.Location.X, -currentControl.Location.Y);
+
+
             }
         }
         /// <summary>
@@ -104,7 +111,7 @@ namespace _SCREEN_CAPTURE
             this.currentControl.Refresh();
             if (fc != null)
             {
-                fc.Visible = true;
+                //fc.Visible = true;
                 fc.Draw();
             }
         }
