@@ -63,12 +63,13 @@ namespace _SCREEN_CAPTURE
             Console.WriteLine(currentControl.Name + " MouseClick , location: " + e.Location);
             this.currentControl.Parent.Refresh();//刷新父容器，清除掉其他控件的边框
             this.currentControl.BringToFront();
+            
             //fc = new FrameControl(this.currentControl);
             if (fc != null) fc.Dispose();
             fc = new FrameControl(this.currentControl);
             this.currentControl.Parent.Controls.Add(fc);
             fc.Visible = true;
-            fc.Draw();
+            fc.Draw(); 
         }
         /// <summary>
         /// 鼠标按下事件：记录当前鼠标相对窗体的坐标

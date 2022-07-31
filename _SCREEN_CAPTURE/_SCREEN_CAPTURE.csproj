@@ -150,6 +150,9 @@
     <EmbeddedResource Include="ColorBox.resx">
       <DependentUpon>ColorBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrameControl.resx">
+      <DependentUpon>FrameControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmCapture.resx">
       <DependentUpon>FrmCapture.cs</DependentUpon>
     </EmbeddedResource>
@@ -222,6 +225,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pin.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ocr.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

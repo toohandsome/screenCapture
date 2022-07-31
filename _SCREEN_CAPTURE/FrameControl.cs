@@ -19,7 +19,7 @@ namespace _SCREEN_CAPTURE
             baseControl = ctrl;
             AddEvents();
             CreateBounds();
-            Console.WriteLine("fc init ... ");
+            Console.WriteLine("fc init ... " + this.Location); 
         }
         #endregion
         #region Fields
@@ -35,6 +35,7 @@ namespace _SCREEN_CAPTURE
         Rectangle ControlRect; //控件包含边框的区域 
         private Point pPoint; //上个鼠标坐标
         private Point cPoint; //当前鼠标坐标
+
         private MousePosOnCtrl mpoc;
         #endregion
         #region Properties
@@ -82,6 +83,7 @@ namespace _SCREEN_CAPTURE
             //设置可视区域
             this.Region = new Region(BuildFrame());
             g = this.CreateGraphics();
+            
         }
         /// <summary>
         /// 设置定义8个小矩形的范围
@@ -393,7 +395,30 @@ namespace _SCREEN_CAPTURE
             Draw();
         }
 
-       
+
         #endregion
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // FrameControl
+            // 
+            this.Name = "FrameControl";
+            this.LocationChanged += new System.EventHandler(this.FrameControl_LocationChanged);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.FrameControl_Paint);
+            this.ResumeLayout(false);
+
+        }
+
+        private void FrameControl_LocationChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("FrameControl_LocationChanged"); 
+        }
+
+        private void FrameControl_Paint(object sender, PaintEventArgs e)
+        {
+            Console.WriteLine("FrameControl_Paint");
+        }
     }
 }

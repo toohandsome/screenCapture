@@ -163,9 +163,29 @@ namespace _SCREEN_CAPTURE.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap ocr {
+            get {
+                object obj = ResourceManager.GetObject("ocr", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap ok {
             get {
                 object obj = ResourceManager.GetObject("ok", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap pin {
+            get {
+                object obj = ResourceManager.GetObject("pin", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

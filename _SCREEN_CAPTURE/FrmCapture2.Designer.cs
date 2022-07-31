@@ -30,57 +30,40 @@ namespace _SCREEN_CAPTURE
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.label1 = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCapture2));
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pin在桌面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.toolButton5 = new _SCREEN_CAPTURE.ToolButton();
+            this.toolButton4 = new _SCREEN_CAPTURE.ToolButton();
+            this.tBtn_Finish = new _SCREEN_CAPTURE.ToolButton();
+            this.tBtn_Close = new _SCREEN_CAPTURE.ToolButton();
+            this.tBtn_Save = new _SCREEN_CAPTURE.ToolButton();
+            this.tBtn_Cancel = new _SCREEN_CAPTURE.ToolButton();
+            this.tBtn_Text = new _SCREEN_CAPTURE.ToolButton();
+            this.tBtn_Brush = new _SCREEN_CAPTURE.ToolButton();
+            this.tBtn_Arrow = new _SCREEN_CAPTURE.ToolButton();
+            this.tBtn_Ellipse = new _SCREEN_CAPTURE.ToolButton();
+            this.tBtn_Rect = new _SCREEN_CAPTURE.ToolButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(40, 57);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(299, 151);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
-            this.pictureBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.pictureBox1_PreviewKeyDown);
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(500, 500);
-            this.trackBar1.Maximum = 254;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(300, 56);
-            this.trackBar1.TabIndex = 2;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(300, 300);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 15);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "label1";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.pictureBox2);
-            this.panel1.Location = new System.Drawing.Point(400, 200);
+            this.panel1.Location = new System.Drawing.Point(519, 48);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(400, 200);
@@ -118,23 +101,198 @@ namespace _SCREEN_CAPTURE
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pin在桌面ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 56);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(151, 28);
             // 
             // pin在桌面ToolStripMenuItem
             // 
             this.pin在桌面ToolStripMenuItem.Name = "pin在桌面ToolStripMenuItem";
-            this.pin在桌面ToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.pin在桌面ToolStripMenuItem.Size = new System.Drawing.Size(150, 24);
             this.pin在桌面ToolStripMenuItem.Text = "pin 在桌面";
             this.pin在桌面ToolStripMenuItem.Click += new System.EventHandler(this.pin在桌面ToolStripMenuItem_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.toolButton5);
+            this.panel2.Controls.Add(this.toolButton4);
+            this.panel2.Controls.Add(this.pictureBox3);
+            this.panel2.Controls.Add(this.pictureBox4);
+            this.panel2.Controls.Add(this.tBtn_Finish);
+            this.panel2.Controls.Add(this.tBtn_Close);
+            this.panel2.Controls.Add(this.tBtn_Save);
+            this.panel2.Controls.Add(this.tBtn_Cancel);
+            this.panel2.Controls.Add(this.tBtn_Text);
+            this.panel2.Controls.Add(this.tBtn_Brush);
+            this.panel2.Controls.Add(this.tBtn_Arrow);
+            this.panel2.Controls.Add(this.tBtn_Ellipse);
+            this.panel2.Controls.Add(this.tBtn_Rect);
+            this.panel2.Location = new System.Drawing.Point(31, 264);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(435, 31);
+            this.panel2.TabIndex = 6;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::_SCREEN_CAPTURE.Properties.Resources.separator;
+            this.pictureBox3.Location = new System.Drawing.Point(218, 6);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(1, 17);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox3.TabIndex = 10;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::_SCREEN_CAPTURE.Properties.Resources.separator;
+            this.pictureBox4.Location = new System.Drawing.Point(153, 7);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(1, 17);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox4.TabIndex = 9;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(40, 57);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(299, 151);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
+            this.pictureBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.pictureBox1_PreviewKeyDown);
+            // 
+            // toolButton5
+            // 
+            this.toolButton5.BtnImage = ((System.Drawing.Image)(resources.GetObject("toolButton5.BtnImage")));
+            this.toolButton5.IsSelected = false;
+            this.toolButton5.IsSelectedBtn = false;
+            this.toolButton5.IsSingleSelectedBtn = false;
+            this.toolButton5.Location = new System.Drawing.Point(263, 3);
+            this.toolButton5.Name = "toolButton5";
+            this.toolButton5.Size = new System.Drawing.Size(21, 21);
+            this.toolButton5.TabIndex = 13;
+            // 
+            // toolButton4
+            // 
+            this.toolButton4.BtnImage = ((System.Drawing.Image)(resources.GetObject("toolButton4.BtnImage")));
+            this.toolButton4.IsSelected = false;
+            this.toolButton4.IsSelectedBtn = false;
+            this.toolButton4.IsSingleSelectedBtn = false;
+            this.toolButton4.Location = new System.Drawing.Point(232, 2);
+            this.toolButton4.Name = "toolButton4";
+            this.toolButton4.Size = new System.Drawing.Size(21, 21);
+            this.toolButton4.TabIndex = 12;
+            // 
+            // tBtn_Finish
+            // 
+            this.tBtn_Finish.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.ok;
+            this.tBtn_Finish.IsSelected = false;
+            this.tBtn_Finish.IsSelectedBtn = false;
+            this.tBtn_Finish.IsSingleSelectedBtn = false;
+            this.tBtn_Finish.Location = new System.Drawing.Point(407, 3);
+            this.tBtn_Finish.Name = "tBtn_Finish";
+            this.tBtn_Finish.Size = new System.Drawing.Size(21, 21);
+            this.tBtn_Finish.TabIndex = 8;
+            this.tBtn_Finish.Click += new System.EventHandler(this.tBtn_Finish_Click);
+            // 
+            // tBtn_Close
+            // 
+            this.tBtn_Close.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.close;
+            this.tBtn_Close.IsSelected = false;
+            this.tBtn_Close.IsSelectedBtn = false;
+            this.tBtn_Close.IsSingleSelectedBtn = false;
+            this.tBtn_Close.Location = new System.Drawing.Point(372, 3);
+            this.tBtn_Close.Name = "tBtn_Close";
+            this.tBtn_Close.Size = new System.Drawing.Size(21, 21);
+            this.tBtn_Close.TabIndex = 7;
+            // 
+            // tBtn_Save
+            // 
+            this.tBtn_Save.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.save;
+            this.tBtn_Save.IsSelected = false;
+            this.tBtn_Save.IsSelectedBtn = false;
+            this.tBtn_Save.IsSingleSelectedBtn = false;
+            this.tBtn_Save.Location = new System.Drawing.Point(326, 3);
+            this.tBtn_Save.Name = "tBtn_Save";
+            this.tBtn_Save.Size = new System.Drawing.Size(21, 21);
+            this.tBtn_Save.TabIndex = 6;
+            this.tBtn_Save.Click += new System.EventHandler(this.tBtn_Save_Click);
+            // 
+            // tBtn_Cancel
+            // 
+            this.tBtn_Cancel.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.cancel;
+            this.tBtn_Cancel.IsSelected = false;
+            this.tBtn_Cancel.IsSelectedBtn = false;
+            this.tBtn_Cancel.IsSingleSelectedBtn = false;
+            this.tBtn_Cancel.Location = new System.Drawing.Point(168, 3);
+            this.tBtn_Cancel.Name = "tBtn_Cancel";
+            this.tBtn_Cancel.Size = new System.Drawing.Size(21, 21);
+            this.tBtn_Cancel.TabIndex = 5;
+            // 
+            // tBtn_Text
+            // 
+            this.tBtn_Text.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.text;
+            this.tBtn_Text.IsSelected = false;
+            this.tBtn_Text.IsSelectedBtn = true;
+            this.tBtn_Text.IsSingleSelectedBtn = false;
+            this.tBtn_Text.Location = new System.Drawing.Point(123, 3);
+            this.tBtn_Text.Name = "tBtn_Text";
+            this.tBtn_Text.Size = new System.Drawing.Size(21, 21);
+            this.tBtn_Text.TabIndex = 4;
+            // 
+            // tBtn_Brush
+            // 
+            this.tBtn_Brush.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.brush;
+            this.tBtn_Brush.IsSelected = false;
+            this.tBtn_Brush.IsSelectedBtn = true;
+            this.tBtn_Brush.IsSingleSelectedBtn = false;
+            this.tBtn_Brush.Location = new System.Drawing.Point(93, 3);
+            this.tBtn_Brush.Name = "tBtn_Brush";
+            this.tBtn_Brush.Size = new System.Drawing.Size(21, 21);
+            this.tBtn_Brush.TabIndex = 3;
+            // 
+            // tBtn_Arrow
+            // 
+            this.tBtn_Arrow.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.arrow;
+            this.tBtn_Arrow.IsSelected = false;
+            this.tBtn_Arrow.IsSelectedBtn = true;
+            this.tBtn_Arrow.IsSingleSelectedBtn = false;
+            this.tBtn_Arrow.Location = new System.Drawing.Point(63, 3);
+            this.tBtn_Arrow.Name = "tBtn_Arrow";
+            this.tBtn_Arrow.Size = new System.Drawing.Size(21, 21);
+            this.tBtn_Arrow.TabIndex = 2;
+            // 
+            // tBtn_Ellipse
+            // 
+            this.tBtn_Ellipse.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.ellips;
+            this.tBtn_Ellipse.IsSelected = false;
+            this.tBtn_Ellipse.IsSelectedBtn = true;
+            this.tBtn_Ellipse.IsSingleSelectedBtn = false;
+            this.tBtn_Ellipse.Location = new System.Drawing.Point(33, 3);
+            this.tBtn_Ellipse.Name = "tBtn_Ellipse";
+            this.tBtn_Ellipse.Size = new System.Drawing.Size(21, 21);
+            this.tBtn_Ellipse.TabIndex = 1;
+            // 
+            // tBtn_Rect
+            // 
+            this.tBtn_Rect.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.rect;
+            this.tBtn_Rect.IsSelected = false;
+            this.tBtn_Rect.IsSelectedBtn = true;
+            this.tBtn_Rect.IsSingleSelectedBtn = false;
+            this.tBtn_Rect.Location = new System.Drawing.Point(3, 3);
+            this.tBtn_Rect.Name = "tBtn_Rect";
+            this.tBtn_Rect.Size = new System.Drawing.Size(21, 21);
+            this.tBtn_Rect.TabIndex = 0;
             // 
             // FrmCapture2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(959, 584);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.pictureBox1);
             this.KeyPreview = true;
             this.Name = "FrmCapture2";
@@ -143,25 +301,39 @@ namespace _SCREEN_CAPTURE
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FrmCapture2_KeyPress);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FrmCapture2_MouseClick);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FrmCapture2_MouseMove);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem pin在桌面ToolStripMenuItem;
+        private System.Windows.Forms.Panel panel2;
+        private ToolButton toolButton5;
+        private ToolButton toolButton4;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private ToolButton tBtn_Finish;
+        private ToolButton tBtn_Close;
+        private ToolButton tBtn_Save;
+        private ToolButton tBtn_Cancel;
+        private ToolButton tBtn_Text;
+        private ToolButton tBtn_Brush;
+        private ToolButton tBtn_Arrow;
+        private ToolButton tBtn_Ellipse;
+        private ToolButton tBtn_Rect;
     }
 }

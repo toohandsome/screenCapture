@@ -168,18 +168,27 @@ namespace _SCREEN_CAPTURE
                 isDraweing = false;
                 isBoxSelection = false;
                 moveControl.MouseClick(sender, e);
+
+
+                // 展示编辑栏
+                
+                panel2.Visible = true;
+                panel2.Location = new Point(panel1.Location.X + panel1.Width-panel2.Width , panel1.Location.Y + panel1.Height+15 );
+                panel2.BringToFront();
+                Console.WriteLine("panel2.Location : " + panel2.Location);
+
+                Bitmap bmp = new Bitmap(panel1.Width,
+                       panel1.Height);
+                using (Graphics g = Graphics.FromImage(bmp))
+                {
+                    g.CopyFromScreen(panel1.Location.X, panel1.Location.Y, 0, 0, bmp.Size);
+                }
+                m_bmpLayerCurrent = bmp;
+
             } 
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-            Console.WriteLine("trackBar1.Value: " + trackBar1.Value);
-            label1.Text = trackBar1.Value+"";
-          // var a=  Gvar.imgColorBrightness(sourceScreen, trackBar1.Value, 0, 0, 200, 400);
-           // pictureBox1.Image = a;
-           // Gvar.BrightnessP(sourceScreen, trackBar1.Value);
-        }
-
+       
         
 
         private void pictureBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -345,15 +354,45 @@ namespace _SCREEN_CAPTURE
         private void pin在桌面ToolStripMenuItem_Click(object sender, EventArgs e)
         {
          
-            Bitmap bmp = new Bitmap(panel1.Width,
-                       panel1.Height);
-            using (Graphics g = Graphics.FromImage(bmp))
-            {
-                g.CopyFromScreen(panel1.Location.X, panel1.Location.Y, 0, 0, bmp.Size);
-            }
-            new FrmPin(bmp).Show();
+            
+            new FrmPin(m_bmpLayerCurrent).Show();
             this.Close();
             
+        }
+
+        private Bitmap m_bmpLayerCurrent;
+
+        private void tBtn_Save_Click(object sender, EventArgs e)
+        {
+            //m_bSave = true;
+            SaveFileDialog saveDlg = new SaveFileDialog();
+            saveDlg.Filter = "Bitmap(*.bmp)|*.bmp|JPEG(*.jpg)|*.jpg";
+            saveDlg.FilterIndex = 2;
+            saveDlg.FileName = "CAPTURE_" + Gvar.GetTimeString();
+            if (saveDlg.ShowDialog() == DialogResult.OK)
+            {
+                switch (saveDlg.FilterIndex)
+                {
+                    case 1:
+                        m_bmpLayerCurrent.Clone(new Rectangle(0, 0, m_bmpLayerCurrent.Width, m_bmpLayerCurrent.Height),
+                            System.Drawing.Imaging.PixelFormat.Format24bppRgb).Save(saveDlg.FileName,
+                            System.Drawing.Imaging.ImageFormat.Bmp);
+                        this.Close();
+                        break;
+                    case 2:
+                        m_bmpLayerCurrent.Save(saveDlg.FileName,
+                            System.Drawing.Imaging.ImageFormat.Jpeg);
+                        this.Close();
+                        break;
+                }
+            }
+            //m_bSave = false;
+        }
+
+        private void tBtn_Finish_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetImage(m_bmpLayerCurrent);
+            this.Close();
         }
     }
 }

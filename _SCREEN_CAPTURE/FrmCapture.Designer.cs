@@ -27,11 +27,18 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolButton1 = new _SCREEN_CAPTURE.ToolButton();
+            this.toolButton3 = new _SCREEN_CAPTURE.ToolButton();
+            this.toolButton2 = new _SCREEN_CAPTURE.ToolButton();
+            this.colorBox1 = new _SCREEN_CAPTURE.ColorBox();
             this.toolButton5 = new _SCREEN_CAPTURE.ToolButton();
             this.toolButton4 = new _SCREEN_CAPTURE.ToolButton();
             this.tBtn_Out = new _SCREEN_CAPTURE.ToolButton();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tBtn_Finish = new _SCREEN_CAPTURE.ToolButton();
             this.tBtn_Close = new _SCREEN_CAPTURE.ToolButton();
             this.tBtn_Save = new _SCREEN_CAPTURE.ToolButton();
@@ -41,13 +48,6 @@
             this.tBtn_Arrow = new _SCREEN_CAPTURE.ToolButton();
             this.tBtn_Ellipse = new _SCREEN_CAPTURE.ToolButton();
             this.tBtn_Rect = new _SCREEN_CAPTURE.ToolButton();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.toolButton1 = new _SCREEN_CAPTURE.ToolButton();
-            this.toolButton3 = new _SCREEN_CAPTURE.ToolButton();
-            this.toolButton2 = new _SCREEN_CAPTURE.ToolButton();
-            this.colorBox1 = new _SCREEN_CAPTURE.ColorBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.imageProcessBox1 = new _SCREEN_CAPTURE.ImageProcessBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -75,6 +75,93 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(577, 31);
             this.panel1.TabIndex = 1;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::_SCREEN_CAPTURE.Properties.Resources.separator;
+            this.pictureBox2.Location = new System.Drawing.Point(282, 6);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(1, 17);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 10;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::_SCREEN_CAPTURE.Properties.Resources.separator;
+            this.pictureBox1.Location = new System.Drawing.Point(172, 7);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1, 17);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.toolButton1);
+            this.panel2.Controls.Add(this.toolButton3);
+            this.panel2.Controls.Add(this.toolButton2);
+            this.panel2.Controls.Add(this.colorBox1);
+            this.panel2.Location = new System.Drawing.Point(15, 142);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(312, 40);
+            this.panel2.TabIndex = 2;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(15, 30);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(124, 22);
+            this.textBox1.TabIndex = 3;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.Resize += new System.EventHandler(this.textBox1_Resize);
+            this.textBox1.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // toolButton1
+            // 
+            this.toolButton1.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.small;
+            this.toolButton1.IsSelected = true;
+            this.toolButton1.IsSelectedBtn = true;
+            this.toolButton1.IsSingleSelectedBtn = true;
+            this.toolButton1.Location = new System.Drawing.Point(3, 8);
+            this.toolButton1.Name = "toolButton1";
+            this.toolButton1.Size = new System.Drawing.Size(21, 21);
+            this.toolButton1.TabIndex = 4;
+            // 
+            // toolButton3
+            // 
+            this.toolButton3.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.large;
+            this.toolButton3.IsSelected = false;
+            this.toolButton3.IsSelectedBtn = true;
+            this.toolButton3.IsSingleSelectedBtn = true;
+            this.toolButton3.Location = new System.Drawing.Point(72, 8);
+            this.toolButton3.Name = "toolButton3";
+            this.toolButton3.Size = new System.Drawing.Size(21, 21);
+            this.toolButton3.TabIndex = 3;
+            // 
+            // toolButton2
+            // 
+            this.toolButton2.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.middle;
+            this.toolButton2.IsSelected = false;
+            this.toolButton2.IsSelectedBtn = true;
+            this.toolButton2.IsSingleSelectedBtn = true;
+            this.toolButton2.Location = new System.Drawing.Point(37, 8);
+            this.toolButton2.Name = "toolButton2";
+            this.toolButton2.Size = new System.Drawing.Size(21, 21);
+            this.toolButton2.TabIndex = 2;
+            // 
+            // colorBox1
+            // 
+            this.colorBox1.Location = new System.Drawing.Point(107, 0);
+            this.colorBox1.Name = "colorBox1";
+            this.colorBox1.Size = new System.Drawing.Size(165, 35);
+            this.colorBox1.TabIndex = 0;
+            this.colorBox1.Text = "colorBox1";
             // 
             // toolButton5
             // 
@@ -113,26 +200,6 @@
             this.tBtn_Out.Size = new System.Drawing.Size(21, 21);
             this.tBtn_Out.TabIndex = 11;
             this.tBtn_Out.Click += new System.EventHandler(this.tBtn_Out_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::_SCREEN_CAPTURE.Properties.Resources.separator;
-            this.pictureBox2.Location = new System.Drawing.Point(282, 6);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(1, 17);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox2.TabIndex = 10;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::_SCREEN_CAPTURE.Properties.Resources.separator;
-            this.pictureBox1.Location = new System.Drawing.Point(172, 7);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1, 17);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 9;
-            this.pictureBox1.TabStop = false;
             // 
             // tBtn_Finish
             // 
@@ -236,73 +303,6 @@
             this.tBtn_Rect.Name = "tBtn_Rect";
             this.tBtn_Rect.Size = new System.Drawing.Size(21, 21);
             this.tBtn_Rect.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.toolButton1);
-            this.panel2.Controls.Add(this.toolButton3);
-            this.panel2.Controls.Add(this.toolButton2);
-            this.panel2.Controls.Add(this.colorBox1);
-            this.panel2.Location = new System.Drawing.Point(15, 142);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(312, 40);
-            this.panel2.TabIndex = 2;
-            // 
-            // toolButton1
-            // 
-            this.toolButton1.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.small;
-            this.toolButton1.IsSelected = true;
-            this.toolButton1.IsSelectedBtn = true;
-            this.toolButton1.IsSingleSelectedBtn = true;
-            this.toolButton1.Location = new System.Drawing.Point(3, 8);
-            this.toolButton1.Name = "toolButton1";
-            this.toolButton1.Size = new System.Drawing.Size(21, 21);
-            this.toolButton1.TabIndex = 4;
-            // 
-            // toolButton3
-            // 
-            this.toolButton3.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.large;
-            this.toolButton3.IsSelected = false;
-            this.toolButton3.IsSelectedBtn = true;
-            this.toolButton3.IsSingleSelectedBtn = true;
-            this.toolButton3.Location = new System.Drawing.Point(72, 8);
-            this.toolButton3.Name = "toolButton3";
-            this.toolButton3.Size = new System.Drawing.Size(21, 21);
-            this.toolButton3.TabIndex = 3;
-            // 
-            // toolButton2
-            // 
-            this.toolButton2.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.middle;
-            this.toolButton2.IsSelected = false;
-            this.toolButton2.IsSelectedBtn = true;
-            this.toolButton2.IsSingleSelectedBtn = true;
-            this.toolButton2.Location = new System.Drawing.Point(37, 8);
-            this.toolButton2.Name = "toolButton2";
-            this.toolButton2.Size = new System.Drawing.Size(21, 21);
-            this.toolButton2.TabIndex = 2;
-            // 
-            // colorBox1
-            // 
-            this.colorBox1.Location = new System.Drawing.Point(107, 0);
-            this.colorBox1.Name = "colorBox1";
-            this.colorBox1.Size = new System.Drawing.Size(165, 35);
-            this.colorBox1.TabIndex = 0;
-            this.colorBox1.Text = "colorBox1";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(15, 30);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(124, 22);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            this.textBox1.Resize += new System.EventHandler(this.textBox1_Resize);
-            this.textBox1.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
-            // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // imageProcessBox1
             // 

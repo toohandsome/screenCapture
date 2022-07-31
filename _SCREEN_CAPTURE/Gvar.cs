@@ -106,6 +106,15 @@ namespace _SCREEN_CAPTURE
             a.UnlockBits(bmpData);
             return a;
         }
+
+
+        public static string GetTimeString()
+        {
+            DateTime time = DateTime.Now;
+            return time.Date.ToShortDateString().Replace("/", "") + "_" +
+                time.ToLongTimeString().Replace(":", "");
+        }
+
     }
 
 }
