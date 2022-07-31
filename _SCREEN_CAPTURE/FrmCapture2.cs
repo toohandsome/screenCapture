@@ -229,13 +229,7 @@ namespace _SCREEN_CAPTURE
             Console.WriteLine("FrmCapture2_MouseClick: " + e.Button);
             
         }
-
-        private void pictureBox2_MouseMove(object sender, MouseEventArgs e)
-        {
-            //Console.WriteLine("pictureBox2_MouseMove: " + e.Button+ " ,Location: " + e.Location);
-            //var a = new MouseEventArgs(e.Button,e.Clicks,e.X,e.Y,e.Delta);
-            moveControl.MouseMove(sender, e);
-        }
+  
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -251,7 +245,7 @@ namespace _SCREEN_CAPTURE
         {
             Console.WriteLine("panel1_MouseUp: " + e.Button);
         }
-
+ 
         private void pictureBox2_MouseUp(object sender, MouseEventArgs e)
         {
             Console.WriteLine("pictureBox2_MouseUp: " + e.Button);
@@ -265,18 +259,8 @@ namespace _SCREEN_CAPTURE
                 moveControl.fc.Visible = true;
             }
         }
-        // 记录拖放的起点
-        private Point pointInPanel1;
-        private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
-        {
-            Console.WriteLine("pictureBox2_MouseDown: " + e.Button);
-            moveControl.MouseDown(sender, e);
-            if (e.Button == MouseButtons.Left)
-            {
-                this.pointInPanel1.X = e.X-panel1.Location.X;
-                this.pointInPanel1.Y = e.Y - panel1.Location.Y;
-            }
-        }
+        
+ 
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -297,6 +281,42 @@ namespace _SCREEN_CAPTURE
             //Console.WriteLine("panel1_LocationChanged: " + info);
         }
 
+
+        // 记录拖放的起点
+        private Point pointInPanel1;
+        private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine("pictureBox2_MouseDown: " + e.Button);
+            moveControl.MouseDown(sender, e);
+            if (e.Button == MouseButtons.Left)
+            {
+                this.pointInPanel1.X = e.X - panel1.Location.X;
+                this.pointInPanel1.Y = e.Y - panel1.Location.Y;
+            }
+        }
+
+        private void pictureBox2_MouseMove(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine("pictureBox2_MouseMove: " + e.Button + " ,Location: " + e.Location);
+            //var a = new MouseEventArgs(e.Button,e.Clicks,e.X,e.Y,e.Delta);
+            moveControl.MouseMove(sender, e);
+            if (e.Button== MouseButtons.Left && isDraweing)
+            {
+                var p = new Point(e.Location.X, e.Location.Y);
+                panel1.Location = p;
+                panel1.Visible = true;
+                pictureBox2.Visible = true;
+
+                startPoint = p;
+                isDraweing = true;
+
+                // 相对于 panel
+                pictureBox2.Location = new Point(-e.Location.X, -e.Location.Y);
+                moveControl.MouseClick(sender, e);
+            }
+            
+        }
+         
         private void pictureBox2_LocationChanged(object sender, EventArgs e)
         {
             Console.WriteLine("pictureBox2_LocationChanged: " + pictureBox2.Location);
