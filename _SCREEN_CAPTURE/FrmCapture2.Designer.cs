@@ -39,6 +39,11 @@ namespace _SCREEN_CAPTURE
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.toolButton1 = new _SCREEN_CAPTURE.ToolButton();
+            this.toolButton3 = new _SCREEN_CAPTURE.ToolButton();
+            this.toolButton2 = new _SCREEN_CAPTURE.ToolButton();
+            this.colorBox1 = new _SCREEN_CAPTURE.ColorBox();
             this.toolButton5 = new _SCREEN_CAPTURE.ToolButton();
             this.toolButton4 = new _SCREEN_CAPTURE.ToolButton();
             this.tBtn_Finish = new _SCREEN_CAPTURE.ToolButton();
@@ -57,6 +62,7 @@ namespace _SCREEN_CAPTURE
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -162,6 +168,58 @@ namespace _SCREEN_CAPTURE
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             this.pictureBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.pictureBox1_PreviewKeyDown);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.toolButton1);
+            this.panel3.Controls.Add(this.toolButton3);
+            this.panel3.Controls.Add(this.toolButton2);
+            this.panel3.Controls.Add(this.colorBox1);
+            this.panel3.Location = new System.Drawing.Point(34, 314);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(312, 40);
+            this.panel3.TabIndex = 7;
+            // 
+            // toolButton1
+            // 
+            this.toolButton1.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.small;
+            this.toolButton1.IsSelected = true;
+            this.toolButton1.IsSelectedBtn = true;
+            this.toolButton1.IsSingleSelectedBtn = true;
+            this.toolButton1.Location = new System.Drawing.Point(3, 8);
+            this.toolButton1.Name = "toolButton1";
+            this.toolButton1.Size = new System.Drawing.Size(21, 21);
+            this.toolButton1.TabIndex = 4;
+            // 
+            // toolButton3
+            // 
+            this.toolButton3.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.large;
+            this.toolButton3.IsSelected = false;
+            this.toolButton3.IsSelectedBtn = true;
+            this.toolButton3.IsSingleSelectedBtn = true;
+            this.toolButton3.Location = new System.Drawing.Point(72, 8);
+            this.toolButton3.Name = "toolButton3";
+            this.toolButton3.Size = new System.Drawing.Size(21, 21);
+            this.toolButton3.TabIndex = 3;
+            // 
+            // toolButton2
+            // 
+            this.toolButton2.BtnImage = global::_SCREEN_CAPTURE.Properties.Resources.middle;
+            this.toolButton2.IsSelected = false;
+            this.toolButton2.IsSelectedBtn = true;
+            this.toolButton2.IsSingleSelectedBtn = true;
+            this.toolButton2.Location = new System.Drawing.Point(37, 8);
+            this.toolButton2.Name = "toolButton2";
+            this.toolButton2.Size = new System.Drawing.Size(21, 21);
+            this.toolButton2.TabIndex = 2;
+            // 
+            // colorBox1
+            // 
+            this.colorBox1.Location = new System.Drawing.Point(107, 0);
+            this.colorBox1.Name = "colorBox1";
+            this.colorBox1.Size = new System.Drawing.Size(165, 35);
+            this.colorBox1.TabIndex = 0;
+            this.colorBox1.Text = "colorBox1";
             // 
             // toolButton5
             // 
@@ -285,12 +343,14 @@ namespace _SCREEN_CAPTURE
             this.tBtn_Rect.Name = "tBtn_Rect";
             this.tBtn_Rect.Size = new System.Drawing.Size(21, 21);
             this.tBtn_Rect.TabIndex = 0;
+            this.tBtn_Rect.Click += new System.EventHandler(this.tBtn_Rect_Click);
             // 
             // FrmCapture2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(959, 584);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
@@ -310,6 +370,7 @@ namespace _SCREEN_CAPTURE
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -335,5 +396,10 @@ namespace _SCREEN_CAPTURE
         private ToolButton tBtn_Arrow;
         private ToolButton tBtn_Ellipse;
         private ToolButton tBtn_Rect;
+        private System.Windows.Forms.Panel panel3;
+        private ToolButton toolButton1;
+        private ToolButton toolButton3;
+        private ToolButton toolButton2;
+        private ColorBox colorBox1;
     }
 }

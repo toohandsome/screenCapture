@@ -10,12 +10,13 @@ namespace _SCREEN_CAPTURE
 {
     public class FrameControl : UserControl
     {
+         
         #region Constructors
         /// <summary>
         /// 构造函数
         /// </summary>
         public FrameControl(Control ctrl)
-        {
+        { 
             baseControl = ctrl;
             AddEvents();
             CreateBounds();
@@ -221,6 +222,7 @@ namespace _SCREEN_CAPTURE
         /// </summary>
         private void ControlMove()
         {
+
             cPoint = Cursor.Position;
             int x = cPoint.X - pPoint.X;
             int y = cPoint.Y - pPoint.Y;
@@ -362,6 +364,11 @@ namespace _SCREEN_CAPTURE
         /// </summary>
         void FrameControl_MouseDown(object sender, MouseEventArgs e)
         {
+            Console.WriteLine("fc MouseDown isDrawing: " + Gvar.isDrawing);
+            if (Gvar.isDrawing)
+            {
+                return;
+            }
             Console.WriteLine(baseControl.Name + " MouseDown ");
             pPoint = Cursor.Position;
         }
@@ -370,6 +377,12 @@ namespace _SCREEN_CAPTURE
         /// </summary>
         void FrameControl_MouseMove(object sender, MouseEventArgs e)
         {
+            Console.WriteLine("fc MouseMove isDrawing: " + Gvar.isDrawing);
+            if (Gvar.isDrawing)
+            {
+                return;
+            }
+
             Console.WriteLine(baseControl.Name + " MouseMove ");
             if (e.Button == MouseButtons.Left)
             {
@@ -388,6 +401,11 @@ namespace _SCREEN_CAPTURE
         /// </summary>
         void FrameControl_MouseUp(object sender, MouseEventArgs e)
         {
+            Console.WriteLine("fc MouseUp isDrawing: " + Gvar.isDrawing);
+            if (Gvar.isDrawing)
+            {
+                return;
+            }
             Console.WriteLine(baseControl.Name + " MouseUp ");
             this.baseControl.Refresh(); //刷掉黑色边框
             this.Visible = true;

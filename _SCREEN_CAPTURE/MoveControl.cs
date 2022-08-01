@@ -8,10 +8,10 @@ using System.Drawing;
 namespace _SCREEN_CAPTURE
 {
     class MoveControl
-    {
+    { 
         #region Constructors
         public MoveControl(Control ctrl, Control imgbox)
-        {
+        { 
             currentControl = ctrl;
             imgbox2 = imgbox;
             AddEvents();
@@ -76,6 +76,11 @@ namespace _SCREEN_CAPTURE
         /// </summary>
         public void MouseDown(object sender, MouseEventArgs e)
         {
+            Console.WriteLine("mc MouseDown isDrawing: " + Gvar.isDrawing);
+            if (Gvar.isDrawing)
+            {
+                return;
+            }
             pPoint = Cursor.Position;
         }
         /// <summary>
@@ -83,6 +88,11 @@ namespace _SCREEN_CAPTURE
         /// </summary>
         public void MouseMove(object sender, MouseEventArgs e)
         {
+            Console.WriteLine("mc MouseMove isDrawing: " + Gvar.isDrawing);
+            if (Gvar.isDrawing)
+            {
+                return;
+            }
             Console.WriteLine(currentControl.Name + " MouseMove ");
             Cursor.Current = Cursors.SizeAll; //当鼠标处于控件内部时，显示光标样式为SizeAll
                                               //当鼠标左键按下时才触发
@@ -108,6 +118,11 @@ namespace _SCREEN_CAPTURE
         /// </summary>
         public void MouseUp(object sender, MouseEventArgs e)
         {
+            Console.WriteLine("mc MouseUp isDrawing: " + Gvar.isDrawing);
+            if (Gvar.isDrawing)
+            {
+                return;
+            }
             Console.WriteLine(currentControl.Name + " MouseUp ");
             this.currentControl.Refresh();
             if (fc != null)

@@ -20,6 +20,8 @@ namespace _SCREEN_CAPTURE
 
         public static bool start_captrue = false;
 
+        public static bool isDrawing = false;
+
 
         public static Bitmap getScreen() {
 

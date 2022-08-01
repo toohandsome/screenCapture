@@ -13,7 +13,7 @@ namespace _SCREEN_CAPTURE
     public partial class FrmCapture2 : Form
     {
         private MoveControl moveControl;
-        private Bitmap sourceScreen;
+        private Bitmap sourceScreen; 
         public FrmCapture2(Bitmap bmp)
         {
             Console.WriteLine("FrmCapture2 init");
@@ -50,9 +50,53 @@ namespace _SCREEN_CAPTURE
             moveControl = new MoveControl(panel1, pictureBox2);
             //trackBar1.Maximum = 255;
             Console.WriteLine("FrmCapture2 init finished");
+
+
+
+            //tBtn_Rect.Click += new EventHandler(selectToolButton_Click);
+            //tBtn_Ellipse.Click += new EventHandler(selectToolButton_Click);
+            //tBtn_Arrow.Click += new EventHandler(selectToolButton_Click);
+            //tBtn_Brush.Click += new EventHandler(selectToolButton_Click);
+            //tBtn_Text.Click += new EventHandler(selectToolButton_Click);
+            tBtn_Close.Click += (s, e) => this.Close();
+
+            Gvar.isDrawing = false;
+
         }
 
-        
+
+        private void selectToolButton_Click(object sender, EventArgs e)
+        {
+            panel3.Visible = ((ToolButton)sender).IsSelected;
+            //if (panel3.Visible) panel1.CanReset = false;
+            //else { panel1.CanReset = m_layer.Count == 0; }
+            this.SetToolBarLocation();
+        }
+
+        private void SetToolBarLocation()
+        {
+            int tempX = panel2.Left;
+            int tempY = panel2.Bottom + 5;
+            int tempHeight = panel3.Visible ? panel3.Height + 2 : 0;
+            if (tempY + panel2.Height + tempHeight >= this.Height)
+                tempY = panel2.Top - panel2.Height - 10 - panel2.Font.Height;
+
+            if (tempY - tempHeight <= 0)
+            {
+                if (panel2.Top - 5 - panel2.Font.Height >= 0)
+                    tempY = panel2.Top + 5;
+                else
+                    tempY = panel2.Top + 10 + panel2.Font.Height;
+            }
+            if (tempX + panel2.Width >= this.Width)
+                tempX = this.Width - panel2.Width - 5;
+           // panel2.Left = tempX;
+            panel3.Left = tempX;
+            //panel2.Top = tempY;
+            panel3.Top = panel2.Top > tempY ? tempY - tempHeight : panel2.Bottom + 2;
+        }
+
+
 
         private void FrmCapture2_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -257,6 +301,10 @@ namespace _SCREEN_CAPTURE
  
         private void pictureBox2_MouseUp(object sender, MouseEventArgs e)
         {
+            if (Gvar.isDrawing)
+            {
+                return;
+            }
             Console.WriteLine("pictureBox2_MouseUp: " + e.Button);
             moveControl.MouseUp(sender, e);
             
@@ -295,6 +343,10 @@ namespace _SCREEN_CAPTURE
         private Point pointInPanel1;
         private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
         {
+            if (Gvar.isDrawing)
+            {
+                return;
+            }
             Console.WriteLine("pictureBox2_MouseDown: " + e.Button);
             moveControl.MouseDown(sender, e);
             if (e.Button == MouseButtons.Left)
@@ -306,7 +358,11 @@ namespace _SCREEN_CAPTURE
 
         private void pictureBox2_MouseMove(object sender, MouseEventArgs e)
         {
-            Console.WriteLine("pictureBox2_MouseMove: " + e.Button + " ,Location: " + e.Location);
+            if (Gvar.isDrawing)
+            {
+                return;
+            }
+            Console.WriteLine("pictureBox2_MouseMove: " + " ,Location: " + e.Location);
             //var a = new MouseEventArgs(e.Button,e.Clicks,e.X,e.Y,e.Delta);
             moveControl.MouseMove(sender, e);
             if (e.Button== MouseButtons.Left && isDraweing)
@@ -393,6 +449,14 @@ namespace _SCREEN_CAPTURE
         {
             Clipboard.SetImage(m_bmpLayerCurrent);
             this.Close();
+        }
+
+        private void tBtn_Rect_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("tBtn_Rect_Click");
+            Cursor.Current = Cursors.Default;
+            Gvar.isDrawing = true;
+          
         }
     }
 }
